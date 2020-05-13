@@ -1,19 +1,29 @@
 require 'rails_helper'
 
 RSpec.describe AnswersController, type: :controller do
-  describe 'GET #index' do
-    let(:questions) { create(:question) }
-    let(:answers) { create_list(@questions.answers, 3) }
 
-    before { get :index,  { question_id: questions, id: answers } }
+  describe 'POST #create' do
+    let(:question) { create(:question)}
+    let(:answer) { create(:answer, question: question)}
 
-    it 'populates an array of all answers' do
-      expect(assigns(:questions.answers)).to match_array(answers)
+    context 'with valid attributes' do
+      it 'saves a new answer in the database' do
+        expect { post :create, params: { question_id: question, answer: attributes_for(:answer) } }.to change(question.answers, :count).by(1)
+      end
+      it 'create answer and render question show view' do
+        post :create, params: { question_id: question, answer: attributes_for(:answer) }
+        expect(response).to redirect_to assigns(:question)
+      end
     end
 
-    it 'renders index views' do
-      expect(response).to render_template :index
+    context 'with invalid attributes' do
+      it 'does not save the answer' do
+        expect { post :create, params: { question_id: question, answer: attributes_for(:answer, :invalid) } }.to_not change(question.answers, :count)
+      end
+      it 're-renders question new view' do
+        post :create, params: { question_id: question, answer: attributes_for(:answer, :invalid) }
+        expect(response).to render_template
+      end
     end
-
   end
 end
