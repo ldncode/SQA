@@ -2,7 +2,6 @@ class AnswersController < ApplicationController
   before_action :find_question, only: [:create]
 
   def new
-
   end
 
   def create
