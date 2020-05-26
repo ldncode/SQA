@@ -1,0 +1,16 @@
+doctype html
+html
+  head
+    title
+      | Sqa
+    = csrf_meta_tags
+    = csp_meta_tag
+    = stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload'
+    = javascript_pack_tag 'application', 'data-turbolinks-track': 'reload'
+  body
+    p.notice
+      = notice
+    p.alert
+      = alert
+    = link_to 'Logout', destroy_user_session_path, method: :delete
+    = yield
