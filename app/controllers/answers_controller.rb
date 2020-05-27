@@ -1,5 +1,5 @@
 class AnswersController < ApplicationController
-  before_action :find_question, only: [:new, :create]
+  before_action :find_question, only: %i[create]
 
   def new
     @answer = @question.answers.new
@@ -10,7 +10,7 @@ class AnswersController < ApplicationController
     if @answer.save
       redirect_to @question, notice: 'Your answer successfully created.'
     else
-      render :new
+      render 'questions/show'
     end
   end
 
