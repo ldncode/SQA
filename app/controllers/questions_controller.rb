@@ -1,5 +1,5 @@
 class QuestionsController < ApplicationController
-  before_action :authenticate_user!, except: %i[index show]
+  before_action :authenticate_user!, except: %i[index show ]
 
   def index
     @questions = Question.all
@@ -26,7 +26,7 @@ class QuestionsController < ApplicationController
   def destroy
     @question = Question.find(params[:id])
     @question.destroy
-    redirect_to questions_path
+    redirect_to questions_path, notice: 'Question deleted'
   end
 
   private
