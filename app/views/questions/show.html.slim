@@ -1,7 +1,11 @@
+= render 'shared/errors', resource: @question
+
 h1 Question
 
 h2= @question.title
 p= @question.body
+
+= link_to 'Delete', question_path, method: :delete
 
 table
   - @question.answers.each do |q|
