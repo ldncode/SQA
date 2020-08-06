@@ -6,7 +6,7 @@ feature 'User can create answer to question', %q{
   I would like to be able to create an answer to the question
 } do
   given(:user) { create(:user) }
-  given!(:question) { create(:question) }
+  given(:question) { create(:question, user: user) }
 
   describe 'Authenticated user' do
     background do
@@ -20,6 +20,15 @@ feature 'User can create answer to question', %q{
 
       expect(page).to have_content 'Your answer successfully created.'
       expect(page).to have_content 'Body answer text'
+
     end
+
+    # scenario 'answer a question' do
+    #   fill_in 'Body', with: ''
+    #   click_on 'Create answer'
+    #
+    #   expect(page).to have_content 'Body answer text'
+    # end
+
   end
 end
