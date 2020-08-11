@@ -5,7 +5,7 @@ feature 'Author can delete his question', %q{
    User must be the author of the question
 } do
   given(:user) { create(:user) }
-  given(:question) { create(:question) }
+  given(:question) { create(:question, user: user) }
 
   scenario 'User can delete his question' do
     # залогинен
@@ -21,7 +21,13 @@ feature 'Author can delete his question', %q{
 
   end
 
-  scenario 'Non author can not delete question'
+  scenario 'Non author can not delete question' do
+    visit question_path(question)
+    click_on 'Delete'
+
+    expect(page).to have_content ''
+  end
+
   scenario 'Unauthenticated user can not delete question' do
     visit question_path(question)
     click_on 'Delete'
