@@ -22,17 +22,16 @@ feature 'Author can delete his question', %q{
   end
 
   scenario 'Non author can not delete question' do
+    sign_in(create(:user))
     visit question_path(question)
-    click_on 'Delete'
 
-    expect(page).to have_content ''
+    expect(page).to_not have_link 'Delete'
   end
 
   scenario 'Unauthenticated user can not delete question' do
     visit question_path(question)
-    click_on 'Delete'
 
-    expect(page).to have_content 'You need to sign in or sign up before continuing.'
+    expect(page).to_not have_link 'Delete'
   end
 
 end

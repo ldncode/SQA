@@ -5,7 +5,8 @@ h1 Question
 h2= @question.title
 p= @question.body
 
-= link_to 'Delete', question_path, method: :delete
+-if current_user.id == @question.user_id
+ = link_to 'Delete', question_path(@question), method: :delete
 
 table
   - @question.answers.each do |q|
