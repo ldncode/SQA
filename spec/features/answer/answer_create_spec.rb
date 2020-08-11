@@ -7,6 +7,7 @@ feature 'User can create answer to question', %q{
 } do
   given(:user) { create(:user) }
   given(:question) { create(:question, user: user) }
+  given(:question_id) { question.first.id }
 
   describe 'Authenticated user' do
     background do
