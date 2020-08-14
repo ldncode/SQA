@@ -24,12 +24,15 @@ feature 'User can create answer to question', %q{
 
     end
 
-    # scenario 'answer a question' do
-    #   fill_in 'Body', with: ''
-    #   click_on 'Create answer'
-    #
-    #   expect(page).to have_content 'Body answer text'
-    # end
+    scenario 'An unauthenticated user tries to create an answer' do
+      fill_in 'Body', with: 'Body answer text'
+      click_on 'Create answer'
+
+      save_and_open_page
+
+      expect(page).to have_content 'Your answer successfully created.'
+    end
 
   end
+
 end
