@@ -28,8 +28,6 @@ feature 'User can create answer to question', %q{
       fill_in 'Body', with: 'Body answer text'
       click_on 'Create answer'
 
-      save_and_open_page
-
       expect(page).to have_content 'Your answer successfully created.'
     end
 
