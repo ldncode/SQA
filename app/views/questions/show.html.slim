@@ -5,13 +5,16 @@ h1 Question
 h2= @question.title
 p= @question.body
 
--if current_user.id == @question.user_id
+-if current_user == @question.user
  = link_to 'Delete', question_path(@question), method: :delete
-
+p
 table
   - @question.answers.each do |q|
-    tr
-      td= q.body
+    -if q.persisted?
+      tr
+       td= q.body
+       -if current_user == q.user
+         td= link_to 'Delete answer', answer_path(q), method: :delete
 
 = render 'answers/form'
 =link_to 'Back', root_path
