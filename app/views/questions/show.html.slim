@@ -5,7 +5,7 @@ h1 Question
 h2= @question.title
 p= @question.body
 
--if current_user == @question.user
+-if current_user.author_of?(@question)
  = link_to 'Delete', question_path(@question), method: :delete
 p
 table
