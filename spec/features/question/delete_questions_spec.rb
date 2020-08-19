@@ -18,7 +18,6 @@ feature 'Author can delete his question', %q{
     expect(page).to have_content 'Question deleted'
     # проверить отсутствие вопроса
     expect(page).to_not have_content question.title
-
   end
 
   scenario 'Non author can not delete question' do

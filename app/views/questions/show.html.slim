@@ -5,7 +5,7 @@ h1 Question
 h2= @question.title
 p= @question.body
 
-- if current_user == @question.user
+- if current_user&.author_of?(@question)
  = link_to 'Delete', question_path(@question), method: :delete
  = render 'answers/form'
 p
@@ -14,7 +14,7 @@ table
     -if answer.persisted?
       tr
        td= answer.body
-       -if current_user == answer.user
+       -if current_user&.author_of?(answer)
          td= link_to 'Delete answer', answer_path(answer), method: :delete
 
 =link_to 'Back', root_path
