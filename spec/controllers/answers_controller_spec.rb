@@ -9,7 +9,7 @@ RSpec.describe AnswersController, type: :controller do
   describe 'POST #create' do
     context 'with valid attributes' do
       it 'saves a new answer in the database' do
-        expect { post :create, params: { question_id: question, answer: attributes_for(:answer) } }.to change(question.answers, :count).by(1)
+        expect { post :create, params: { question_id: question, answer: attributes_for(:answer) } }.to change(Answer, :count).by(1)
       end
       it 'create answer and render question show view' do
         post :create, params: { question_id: question, answer: attributes_for(:answer) }
@@ -26,12 +26,19 @@ RSpec.describe AnswersController, type: :controller do
         expect(response).to render_template('questions/show')
       end
     end
+
+    context 'answer belongs to the logged in user' do
+      it 'answer user' do
+        post :create, params: { question_id: question, user: user, answer: attributes_for(:answer) }
+        expect(assigns(:answer).user).to eq user
+      end
+    end
   end
 
   describe 'DELETE #destroy' do
     context "author" do
       it 'delete the answer' do
-        expect { delete :destroy, params: { id: answer } }.to change(question.answers, :count).by(-1)
+        expect { delete :destroy, params: { id: answer } }.to change( Answer, :count).by(-1)
       end
       it 'redirect to index' do
         delete :destroy, params: { id: answer }
@@ -44,7 +51,7 @@ RSpec.describe AnswersController, type: :controller do
       before { login(user1) }
 
       it 'delete the answer' do
-        expect { delete :destroy, params: { id: answer } }.to_not change(question.answers, :count)
+        expect { delete :destroy, params: { id: answer } }.to_not change(Answer, :count)
       end
       it 'redirect to index' do
         delete :destroy, params: { id: answer }

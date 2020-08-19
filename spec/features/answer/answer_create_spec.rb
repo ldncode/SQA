@@ -24,11 +24,13 @@ feature 'User can create answer to question', %q{
 
     end
 
-    scenario 'An unauthenticated user tries to create an answer' do
-      fill_in 'Body', with: 'Body answer text'
-      click_on 'Create answer'
+  end
 
-      expect(page).to have_content 'Your answer successfully created.'
+  describe 'Unauthenticated user' do
+    scenario 'answer a question' do
+      visit question_path(question)
+
+      expect(page).to_not have_content 'answer.body'
     end
 
   end
