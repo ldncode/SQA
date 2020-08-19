@@ -15,20 +15,20 @@ feature 'Author can delete his answer to the question', %q{
     click_on 'Delete answer'
 
     expect(page).to have_content 'Answer deleted'
-
+    expect(page).to_not have_content 'answer.body'
   end
 
-  scenario 'Non author can not delete question' do
+  scenario 'Non author can not delete answer' do
     sign_in(create(:user))
     visit question_path(question)
 
-    expect(page).to_not have_link 'Delete'
+    expect(page).to_not have_link 'Delete answer'
   end
 
   scenario 'Unauthenticated user can not delete question' do
     visit question_path(question)
 
-    expect(page).to_not have_link 'Delete'
+    expect(page).to_not have_link 'Delete answer'
   end
 
 end

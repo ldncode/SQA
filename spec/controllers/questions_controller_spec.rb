@@ -50,6 +50,13 @@ RSpec.describe QuestionsController, type: :controller do
         expect(response).to render_template :new
       end
     end
+
+    context 'question belongs to the logged in user' do
+      it 'question user' do
+        post :create, params: { user_id: user, question: attributes_for(:question) }
+        expect(assigns(:question).user).to eq user
+      end
+    end
   end
 
   describe 'DELETE #destroy' do
