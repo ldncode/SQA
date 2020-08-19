@@ -20,7 +20,7 @@ class AnswersController < ApplicationController
     @answer.destroy
       redirect_to question_path(@answer.question), notice: 'Answer deleted'
     else
-      redirect_to question_path, notice: 'You can not delete answer'
+      redirect_to question_path(@answer.question), notice: 'You can not delete answer'
     end
   end
 
