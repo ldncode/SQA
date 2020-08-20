@@ -17,12 +17,16 @@ feature 'User can create answer to question', %q{
       visit question_path(question)
     end
 
-    scenario 'answer a question' do
+    scenario 'create answer a question' do
       fill_in 'Body', with: 'Body answer text'
       click_on 'Create answer'
 
+      expect(current_path).to eq question_path(question)
       expect(page).to have_content 'Your answer successfully created.'
-      expect(page).to have_content 'Body answer text'
+
+      within '.answers' do
+        expect(page).to have_content 'Body answer text'
+      end
     end
 
     scenario 'invalid answer create' do
