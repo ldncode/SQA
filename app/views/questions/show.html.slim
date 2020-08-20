@@ -9,7 +9,7 @@ p= @question.body
  = link_to 'Delete', question_path(@question), method: :delete
  = render 'answers/form'
 p
-table
+.answers
   - @question.answers.each do |answer|
     -if answer.persisted?
       tr
